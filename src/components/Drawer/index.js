@@ -6,9 +6,11 @@ import { useCart } from '../../hooks/useCart';
 
 import styles from './Drawer.module.scss';
 
+
 const delay = (ms) => {
     new Promise((resolve) => setTimeout(resolve, ms));
 };
+console.log(styles);
 
 function Drawer({ onClose, onRemove, items = [], opened }) {
     const urlOrder = 'https://64344d4b1c5ed06c95942a77.mockapi.io/orders/'
@@ -25,7 +27,6 @@ function Drawer({ onClose, onRemove, items = [], opened }) {
             setIsLoading(true);
             const { data } = await axios.post(urlOrder, {items: cartItems});
 
-
             setOrderId(data.id);
             setIsOrderComplete(true);
             setCartItems([]);
@@ -35,8 +36,6 @@ function Drawer({ onClose, onRemove, items = [], opened }) {
                 await axios.delete(`${urlCart}${item.id}`);
                 await delay(1000); 
             }
-
-
         } catch (error) {
             alert("Ошибка при создании заказа! :(")
         }

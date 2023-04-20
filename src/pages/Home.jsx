@@ -12,26 +12,18 @@ const Home = ({
     }) => {
 
     const renderItems = () => {
-        let uniqId = 1;
+        const filterdItems = items.filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()));
 
         return ( 
-            isLoading  
-            ? [...Array(12)].map(() => (
-                <Card
-                    key={uniqId++}
-                    loading={isLoading}
-                /> 
-            ))  :
-            items.filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()))
-                .map((item, index) => (
-                    <Card
-                        key={index} 
-                        onPlus ={(obj) => onAddToCart(obj)}
-                        added={cartItems.some(obj => obj.title === item.title)}
-                        onFavorite ={(obj) => onAddToFavorites(obj)}
-                        loading={isLoading}
-                        {...item}
-                    />)))
+            (isLoading ? [...Array(8)] : filterdItems).map((item, index) => (
+            <Card
+            key={index} 
+            onPlus ={(obj) => onAddToCart(obj)}
+            added={cartItems.some(obj => obj.title === item.title)}
+            onFavorite ={(obj) => onAddToFavorites(obj)}
+            loading={isLoading}
+            {...item}
+        />)));
     }
     
 
